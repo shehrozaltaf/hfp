@@ -56,6 +56,10 @@ Route::get('vaccination_report', 'Vaccination_report@index')->middleware(['auth'
 /*=====================================patient_visit_report=====================================*/
 Route::get('patient_visit_report', 'Patient_visit_report@index')->middleware(['auth'])->name('patient_visit_report');
 
+/*=====================================Presenting_Complaint=====================================*/
+Route::get('presenting_complaint', 'Presenting_Complaint@index')->middleware(['auth'])->name('presenting_complaint');
+
+
 
 /*=====================================doctors=====================================*/
 Route::get('doctors', 'Doctors@index')->middleware(['auth'])->name('doctors');

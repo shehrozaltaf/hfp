@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class Patient_visit_report_Model extends Model
+class Presenting_Complaint_Model extends Model
 {
     use HasFactory;
 
@@ -19,27 +19,29 @@ class Patient_visit_report_Model extends Model
         $sql = DB::table('patientview as pd')->select(DB::raw("
     uclist.distname,
 	uclist.uccode,
-	uclist.ucname,
-	pd.pc201a AS dr_name,
-	COUNT ( pd.col_id ) AS opd,
-	SUM (CASE WHEN ageYear >=0 and  ageYear <=4 THEN 1 ELSE 0 END) AS u5,
-	SUM ( CASE WHEN ageYear >= 15 AND ageYear <= 49 AND pd.ss108= 2 THEN 1 ELSE 0 END ) AS wra,
-	SUM ( CASE WHEN pd.pw= 1 THEN 1 ELSE 0 END ) AS pws,
-	SUM ( CASE WHEN ( ageYear < 15 OR ageYear > 49 )
-			AND pd.anc!= 1
-			AND pd.pnc!= 1
-			AND pd.vaccination!= 1
-			AND pd.ss108= 1 THEN
-				1 ELSE 0
-			END
-			) AS other,
-	SUM ( CASE WHEN pd.anc= 1 THEN 1 ELSE 0 END ) AS anc,
-	SUM ( CASE WHEN pd.pnc= 1 THEN 1 ELSE 0 END ) AS pnc,
-	SUM ( CASE WHEN pd.vaccination= 1 THEN 1 ELSE 0 END ) AS vaccination "))
-        ->leftJoin('uclist', 'pd.ss104', '=', 'uclist.uccode') ;
-        $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname','pd.pc201a');
-        $sql->orderBy('uclist.uccode', 'asc');
-        $sql->orderBy('pd.pc201a', 'asc');
+	uclist.ucname, 
+	SUM (CASE WHEN pc20101 =1 THEN 1 ELSE 0 END) AS fever, 
+    SUM (CASE WHEN pc20102 =2 THEN 1 ELSE 0 END) AS cough,
+    SUM (CASE WHEN pc20103 =3 THEN 1 ELSE 0 END) AS sore_troat, 
+    SUM (CASE WHEN pc20104 =4 THEN 1 ELSE 0 END) AS skin_problem, 
+    SUM (CASE WHEN pc20105 =5 THEN 1 ELSE 0 END) AS Earache_Discharge, 
+    SUM (CASE WHEN pc20106 =6 THEN 1 ELSE 0 END) AS Eye_Redness_Discharge, 
+    SUM (CASE WHEN pc20107 =7 THEN 1 ELSE 0 END) AS Diarrhea, 
+    SUM (CASE WHEN pc20108 =8 THEN 1 ELSE 0 END) AS Dysentery, 
+    SUM (CASE WHEN pc20109 =9 THEN 1 ELSE 0 END) AS Abdominal_Pain, 
+    SUM (CASE WHEN PC20110 =10 THEN 1 ELSE 0 END) AS Vomiting, 
+    SUM (CASE WHEN pc20111 =11 THEN 1 ELSE 0 END) AS Weakness, 
+    SUM (CASE WHEN pc20112 =12 THEN 1 ELSE 0 END) AS Vertigo, 
+    SUM (CASE WHEN pc20113 =13 THEN 1 ELSE 0 END) AS Headache, 
+    SUM (CASE WHEN pc20114 =14 THEN 1 ELSE 0 END) AS Body_Ache, 
+    SUM (CASE WHEN pc20115 =15 THEN 1 ELSE 0 END) AS Paleness_Anemia, 
+    SUM (CASE WHEN pc20116 =16 THEN 1 ELSE 0 END) AS Yellow_discoloration_of_Eyes_Jaundice, 
+    SUM (CASE WHEN pc20117 =17 THEN 1 ELSE 0 END) AS Malnutrition, 
+    SUM (CASE WHEN pc20118 =18 THEN 1 ELSE 0 END) AS Problems_in_micturition, 
+    SUM (CASE WHEN pc20119 =19 THEN 1 ELSE 0 END) AS Constipation"));
+        $sql ->leftJoin('uclist', 'pd.ss104', '=', 'uclist.uccode');
+        $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname' );
+        $sql->orderBy('uclist.uccode', 'asc'); 
 
         $sql->where(function ($query) {
             $query->where('pd.colflag')
