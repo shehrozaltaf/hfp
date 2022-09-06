@@ -59,6 +59,9 @@ Route::get('patient_visit_report', 'Patient_visit_report@index')->middleware(['a
 /*=====================================Presenting_Complaint=====================================*/
 Route::get('presenting_complaint', 'Presenting_Complaint@index')->middleware(['auth'])->name('presenting_complaint');
 
+/*=====================================Diagnosis=====================================*/
+Route::get('diagnosis', 'Diagnosis@index')->middleware(['auth'])->name('diagnosis');
+
 
 
 /*=====================================doctors=====================================*/

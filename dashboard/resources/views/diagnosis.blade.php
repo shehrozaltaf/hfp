@@ -1,5 +1,5 @@
 @extends('layouts.simple.master')
-@section('title',  trans('lang.presenting_complaint_main_heading')  )
+@section('title',  trans('lang.diagnosis_main_heading')  )
 
 @section('css')
 
@@ -9,11 +9,11 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>{{ trans('lang.presenting_complaint_main_heading') }}</h3>
+    <h3>{{ trans('lang.diagnosis_main_heading') }}</h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item active">{{ trans('lang.presenting_complaint_main_heading') }}</li>
+    <li class="breadcrumb-item active">{{ trans('lang.diagnosis_main_heading') }}</li>
 @endsection
 
 @section('content')
@@ -118,25 +118,25 @@
                                     <tr>
                                         <th>District</th>
                                         <th>UC</th>
-                                        <th>Fever</th>
-                                        <th>Cough</th>
-                                        <th>Sore troat</th>
-                                        <th>Skin problem</th>
-                                        <th>Earache Discharge</th>
-                                        <th>Eye Redness Discharge</th>
-                                        <th>Diarrhea</th>
+                                        <th>Upper Respiratory Tract Infection</th>
+                                        <th>Lower Respiratory Tract Infection</th>
+                                        <th>Allergic Rhinitis</th>
+                                        <th>Acute Gastroenteritis</th>
                                         <th>Dysentery</th>
-                                        <th>Abdominal Pain</th>
-                                        <th>Vomiting</th>
-                                        <th>Weakness</th>
-                                        <th>Vertigo</th>
-                                        <th>Headache</th>
-                                        <th>Body Ache</th>
-                                        <th>Paleness (Anemia)</th>
-                                        <th>Yellow discoloration of Eyes (Jaundice)</th>
-                                        <th>Malnutrition</th>
-                                        <th>Problems in micturition</th>
-                                        <th>Constipation</th>
+                                        <th>Typhoid Fever</th>
+                                        <th>Cellulitis</th>
+                                        <th>Ophthalmitis</th>
+                                        <th>Otitis Media</th>
+                                        <th>Scabies</th>
+                                        <th>Anemia</th>
+                                        <th>Jaundice</th>
+                                        <th>Malaria</th>
+                                        <th>Urinary Tract Infection</th>
+                                        <th>Pyrexia of Unknown Origin</th>
+                                        <th>Pre-Eclampsia</th>
+                                        <th>Eclampsia</th>
+                                        <th>Undernutrition</th>
+                                        <th>Obesity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -145,25 +145,25 @@
                                             <tr class="red">
                                                 <td class="p-1">{{$v->distname}}</td>
                                                 <td class="p-1">{{$v->ucname}}</td>
-                                                <td class="p-1">{{$v->fever}}</td>
-                                                <td class="p-1">{{$v->cough}}</td>
-                                                <td class="p-1">{{$v->sore_troat}}</td>
-                                                <td class="p-1">{{$v->skin_problem}}</td>
-                                                <td class="p-1">{{$v->Earache_Discharge}}</td>
-                                                <td class="p-1">{{$v->Eye_Redness_Discharge}}</td>
-                                                <td class="p-1">{{$v->Diarrhea}}</td>
-                                                <td class="p-1">{{$v->Dysentery}}</td>
-                                                <td class="p-1">{{$v->Abdominal_Pain}}</td>
-                                                <td class="p-1">{{$v->Vomiting}}</td>
-                                                <td class="p-1">{{$v->Weakness}}</td>
-                                                <td class="p-1">{{$v->Vertigo}}</td>
-                                                <td class="p-1">{{$v->Headache}}</td>
-                                                <td class="p-1">{{$v->Body_Ache}}</td>
-                                                <td class="p-1">{{$v->Paleness_Anemia}}</td>
-                                                <td class="p-1">{{$v->Yellow_discoloration_of_Eyes_Jaundice}}</td>
-                                                <td class="p-1">{{$v->Malnutrition}}</td>
-                                                <td class="p-1">{{$v->Problems_in_micturition}}</td>
-                                                <td class="p-1">{{$v->Constipation}}</td>
+                                                <td class="p-1">{{$v->upper_respiratory_tract_infection}}</td>
+                                                <td class="p-1">{{$v->lower_respiratory_tract_infection}}</td>
+                                                <td class="p-1">{{$v->allergic_rhinitis}}</td>
+                                                <td class="p-1">{{$v->acute_gastroenteritis}}</td>
+                                                <td class="p-1">{{$v->dysentery}}</td>
+                                                <td class="p-1">{{$v->typhoid_fever}}</td>
+                                                <td class="p-1">{{$v->cellulitis}}</td>
+                                                <td class="p-1">{{$v->ophthalmitis}}</td>
+                                                <td class="p-1">{{$v->otitis_media}}</td>
+                                                <td class="p-1">{{$v->scabies}}</td>
+                                                <td class="p-1">{{$v->anemia}}</td>
+                                                <td class="p-1">{{$v->jaundice}}</td>
+                                                <td class="p-1">{{$v->malaria}}</td>
+                                                <td class="p-1">{{$v->urinary_tract_infection}}</td>
+                                                <td class="p-1">{{$v->pyrexia_of_unknown_origin}}</td>
+                                                <td class="p-1">{{$v->pre_eclampsia}}</td>
+                                                <td class="p-1">{{$v->eclampsia}}</td>
+                                                <td class="p-1">{{$v->undernutrition}}</td>
+                                                <td class="p-1">{{$v->obesity}}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -172,25 +172,25 @@
                                     <tr>
                                         <th>District</th>
                                         <th>UC</th>
-                                        <th>Fever</th>
-                                        <th>Fough</th>
-                                        <th>Sore troat</th>
-                                        <th>skin problem</th>
-                                        <th>Earache Discharge</th>
-                                        <th>Eye Redness Discharge</th>
-                                        <th>Diarrhea</th>
+                                        <th>Upper Respiratory Tract Infection</th>
+                                        <th>Lower Respiratory Tract Infection</th>
+                                        <th>Allergic Rhinitis</th>
+                                        <th>Acute Gastroenteritis</th>
                                         <th>Dysentery</th>
-                                        <th>Abdominal Pain</th>
-                                        <th>Vomiting</th>
-                                        <th>Weakness</th>
-                                        <th>Vertigo</th>
-                                        <th>Headache</th>
-                                        <th>Body Ache</th>
-                                        <th>Paleness (Anemia)</th>
-                                        <th>Yellow discoloration of Eyes (Jaundice)</th>
-                                        <th>Malnutrition</th>
-                                        <th>Problems in micturition</th>
-                                        <th>Constipation</th>
+                                        <th>Typhoid Fever</th>
+                                        <th>Cellulitis</th>
+                                        <th>Ophthalmitis</th>
+                                        <th>Otitis Media</th>
+                                        <th>Scabies</th>
+                                        <th>Anemia</th>
+                                        <th>Jaundice</th>
+                                        <th>Malaria</th>
+                                        <th>Urinary Tract Infection</th>
+                                        <th>Pyrexia of Unknown Origin</th>
+                                        <th>Pre-Eclampsia</th>
+                                        <th>Eclampsia</th>
+                                        <th>Undernutrition</th>
+                                        <th>Obesity</th>
                                     </tr>
                                     </tfoot>
                                 </table>

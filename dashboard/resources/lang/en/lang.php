@@ -23,11 +23,17 @@ return [
     'patient_visit_report_dt_heading' => 'Patient Visit Report',
     'patient_visit_report_dt_paragraph' => '',
 
-        /*=========================Presenting Complaint=========================*/
-        'presenting_complaint' => 'Presenting Complaint',
-        'presenting_complaint_main_heading' => 'Presenting Complaint Report',
-        'presenting_complaint_dt_heading' => 'Presenting Complaint Report',
-        'presenting_complaint_dt_paragraph' => '',
+    /*=========================presenting_complaint=========================*/
+    'presenting_complaint' => 'Presenting Complaint',
+    'presenting_complaint_main_heading' => 'Presenting Complaint',
+    'presenting_complaint_dt_heading' => 'Presenting Complaint Report',
+    'presenting_complaint_dt_paragraph' => '',
+
+    /*=========================Diagnosis=========================*/
+    'diagnosis' => 'Diagnosis',
+    'diagnosis_main_heading' => 'Diagnosis',
+    'diagnosis_dt_heading' => 'Diagnosis',
+    'diagnosis_dt_paragraph' => '',
 
     /*=========================doctors=========================*/
     'doctors' => 'Doctors',
