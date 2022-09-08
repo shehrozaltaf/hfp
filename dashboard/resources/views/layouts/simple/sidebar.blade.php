@@ -107,7 +107,7 @@
 
                 </ul>
             </div>
-            <div class="right-arrow disabled" id="right-arrow"><i data-feather="arrow-right"></i></div>
+            <div class="right-arrow  " id="right-arrow"><i data-feather="arrow-right"></i></div>
         </nav>
     </div>
 </div>

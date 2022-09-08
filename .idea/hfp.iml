@@ -103,10 +103,6 @@
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/fakerphp/faker" />
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/dompdf/dompdf" />
-      <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/phpdocumentor/reflection-common" />
-      <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/phpdocumentor/type-resolver" />
-      <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/phpdocumentor/reflection-docblock" />
-      <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/psy/psysh" />
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/dashboard/vendor/dragonmantank/cron-expression" />
