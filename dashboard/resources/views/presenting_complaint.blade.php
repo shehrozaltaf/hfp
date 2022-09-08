@@ -139,7 +139,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $total_fever = 0;
+                                       $total_fever = 0;
                                        $total_cough = 0;
                                        $total_sore_troat = 0;
                                        $total_skin_problem = 0;
