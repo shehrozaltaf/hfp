@@ -20,6 +20,7 @@ class Diagnosis_Model extends Model
     uclist.distname,
 	uclist.uccode,
 	uclist.ucname, 
+    COUNT ( pd.col_id ) AS patients,
     SUM (CASE WHEN DI20201 =1 THEN 1 ELSE 0 END) AS upper_respiratory_tract_infection, 
     SUM (CASE WHEN DI20202 =2 THEN 1 ELSE 0 END) AS lower_respiratory_tract_infection,
     SUM (CASE WHEN DI20203 =3 THEN 1 ELSE 0 END) AS allergic_rhinitis, 

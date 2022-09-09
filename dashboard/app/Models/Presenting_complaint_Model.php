@@ -20,6 +20,7 @@ class Presenting_Complaint_Model extends Model
     uclist.distname,
 	uclist.uccode,
 	uclist.ucname, 
+    COUNT ( pd.col_id ) AS patients,
 	SUM (CASE WHEN pc20101 =1 THEN 1 ELSE 0 END) AS fever, 
     SUM (CASE WHEN pc20102 =2 THEN 1 ELSE 0 END) AS cough,
     SUM (CASE WHEN pc20103 =3 THEN 1 ELSE 0 END) AS sore_troat, 

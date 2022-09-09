@@ -116,6 +116,7 @@
                                     <tr>
                                         <th>District</th>
                                         <th>UC</th>
+                                        <th>Total Patients</th>
                                         <th>Fever</th>
                                         <th>Cough</th>
                                         <th>Sore troat</th>
@@ -139,6 +140,7 @@
                                 </thead>
                                 <tbody>
                                     @php
+                                       $total_patients = 0;
                                        $total_fever = 0;
                                        $total_cough = 0;
                                        $total_sore_troat = 0;
@@ -163,6 +165,7 @@
                                     @if(isset($data['getData']) && $data['getData']!='')
                                     @foreach($data['getData'] as $k=>$v)
                                     @php
+                                       $total_patients += (isset($v->patients) && $v->patients != '' ? $v->patients : 0);
                                        $total_fever += (isset($v->fever) && $v->fever != '' ? $v->fever : 0);
 	                                   $total_cough += (isset($v->cough) && $v->cough != '' ? $v->cough : 0);
 	                                   $total_sore_troat += (isset($v->sore_troat) && $v->sore_troat != '' ? $v->sore_troat : 0);
@@ -178,7 +181,7 @@
 	                                   $total_Headache += (isset($v->Headache) && $v->Headache != '' ? $v->Headache : 0);
 	                                   $total_Body_Ache += (isset($v->Body_Ache) && $v->Body_Ache != '' ? $v->Body_Ache : 0);
 	                                   $total_Paleness_Anemia += (isset($v->Paleness_Anemia) && $v->Paleness_Anemia != '' ? $v->Paleness_Anemia : 0);
-	                                   $total_Jaundice += (isset($v->Jaundice) && $v->Jaundice != '' ? $v->Jaundice : 0);
+	                                   $total_Jaundice += (isset($v->Yellow_discoloration_of_Eyes_Jaundice) && $v->Yellow_discoloration_of_Eyes_Jaundice != '' ? $v->Yellow_discoloration_of_Eyes_Jaundice : 0);
 	                                   $total_Malnutrition += (isset($v->Malnutrition) && $v->Malnutrition != '' ? $v->Malnutrition : 0);
 	                                   $total_Problems_in_micturition += (isset($v->Problems_in_micturition) && $v->Problems_in_micturition != '' ? $v->Problems_in_micturition : 0);
 	                                   $total_Constipation += (isset($v->Constipation) && $v->Constipation != '' ? $v->Constipation : 0);
@@ -186,6 +189,7 @@
                                     <tr class="red">
                                         <td class="p-1">{{$v->distname}}</td>
                                         <td class="p-1">{{$v->ucname}}</td>
+                                        <td class="p-1">{{$v->patients}}</td>
                                         <td class="p-1">{{$v->fever}}</td>
                                         <td class="p-1">{{$v->cough}}</td>
                                         <td class="p-1">{{$v->sore_troat}}</td>
@@ -215,6 +219,7 @@
                                         
                                         <th>Total</th>
                                         <th>--</th>
+                                        <th class="p-1"><?= $total_patients ?></th>
                                         <th class="p-1"><?= $total_fever ?></th>
                                         <th class="p-1"><?= $total_cough ?></th>
                                         <th class="p-1"><?= $total_sore_troat ?></th>

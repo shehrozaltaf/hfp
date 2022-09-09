@@ -116,6 +116,7 @@
                                     <tr>
                                         <th>District</th>
                                         <th>UC</th>
+                                        <th>Total Patients</th>
                                         <th>Upper Respiratory Tract Infection</th>
                                         <th>Lower Respiratory Tract Infection</th>
                                         <th>Allergic Rhinitis</th>
@@ -139,6 +140,7 @@
                                 </thead>
                                 <tbody>
                                     @php
+                                    $total_patients = 0;
                                     $total_upper_respiratory_tract_infection = 0;
                                     $total_lower_respiratory_tract_infection = 0;
                                     $total_allergic_rhinitis = 0;
@@ -164,6 +166,7 @@
                                     @foreach($data['getData'] as $k=>$v)
                                    
                                     @php
+                                    $total_patients += (isset($v->patients) && $v->patients != '' ? $v->patients : 0);
                                     $total_upper_respiratory_tract_infection +=
                                     (isset($v->upper_respiratory_tract_infection) &&
                                     $v->upper_respiratory_tract_infection != '' ? $v->upper_respiratory_tract_infection
@@ -205,6 +208,7 @@
                                     <tr class="red">
                                         <td class="p-1">{{$v->distname}}</td>
                                         <td class="p-1">{{$v->ucname}}</td>
+                                        <td class="p-1">{{$v->patients}}</td>
                                         <td class="p-1">{{$v->upper_respiratory_tract_infection}}</td>
                                         <td class="p-1">{{$v->lower_respiratory_tract_infection}}</td>
                                         <td class="p-1">{{$v->allergic_rhinitis}}</td>
@@ -234,6 +238,7 @@
                                         
                                         <th>Total</th>
                                         <th>--</th>
+                                        <th class="p-1"><?= $total_patients ?></th>
                                         <th class="p-1"><?= $total_upper_respiratory_tract_infection ?></th>
                                         <th class="p-1"><?= $total_lower_respiratory_tract_infection ?></th>
                                         <th class="p-1"><?= $total_allergic_rhinitis ?></th>
