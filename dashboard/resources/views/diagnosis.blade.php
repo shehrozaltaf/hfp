@@ -327,6 +327,10 @@ $(document).ready(function() {
         attr: {
             autocomplete: 'off'
         },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel'
+        ],
         initComplete: function() {
             $(this.api().table().container()).find('input[type="search"]').parent().wrap('<form>')
                 .parent().attr('autocomplete', 'off').css('overflow', 'hidden').css('margin',
