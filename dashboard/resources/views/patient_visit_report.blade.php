@@ -130,8 +130,30 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                       $total_opd = 0;
+                                       $total_u5 = 0;
+                                       $total_wra = 0;
+                                       $total_pws = 0;
+                                       $total_other = 0;
+                                       $total_anc = 0;
+                                       $total_pnc = 0;
+                                       $total_vaccination = 0;                                     
+                                       
+                                    @endphp
                                     @if(isset($data['getData']) && $data['getData']!='')
                                         @foreach($data['getData'] as $k=>$v)
+                                        @php
+                                       $total_opd += (isset($v->opd) && $v->opd != '' ? $v->opd : 0);
+                                       $total_u5 += (isset($v->u5) && $v->u5 != '' ? $v->u5 : 0);
+	                                   $total_wra += (isset($v->wra) && $v->wra != '' ? $v->wra : 0);
+	                                   $total_pws += (isset($v->pws) && $v->pws != '' ? $v->pws : 0);
+	                                   $total_other += (isset($v->other) && $v->other != '' ? $v->other : 0);
+	                                   $total_anc += (isset($v->anc) && $v->anc != '' ? $v->anc : 0);
+	                                   $total_pnc += (isset($v->pnc) && $v->pnc != '' ? $v->pnc : 0);
+                                       $total_vaccination += (isset($v->vaccination) && $v->vaccination != '' ? $v->vaccination : 0);
+
+                                       @endphp
                                             <tr class="red">
                                                 <td class="p-1">{{$v->distname}}</td>
                                                 <td class="p-1">{{$v->ucname}}</td>
@@ -150,17 +172,18 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>District</th>
-                                        <th>UC</th>
-                                        <th>Doctor</th>
-                                        <th>OPD</th>
-                                        <th>Under 5</th>
-                                        <th>WRAs</th>
-                                        <th>PWs</th>
-                                        <th>Other</th>
-                                        <th>ANC</th>
-                                        <th>PNC</th>
-                                        <th>Vaccination</th>
+                                    <th>Total</th>
+                                        <th>--</th>
+                                        <th>--</th>
+                                        <th class="p-1"><?= $total_opd ?></th>
+                                        <th class="p-1"><?= $total_u5 ?></th>
+                                        <th class="p-1"><?= $total_wra ?></th>
+                                        <th class="p-1"><?= $total_pws ?></th>
+                                        <th class="p-1"><?= $total_other ?></th>
+                                        <th class="p-1"><?= $total_anc ?></th>
+                                        <th class="p-1"><?= $total_pnc ?></th>
+                                        <th class="p-1"><?= $total_vaccination ?></th>
+                                       
                                     </tr>
                                     </tfoot>
                                 </table>

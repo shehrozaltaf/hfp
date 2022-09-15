@@ -20,17 +20,19 @@ class Vaccination_report_Model extends Model
 	uclist.uccode,
 	uclist.ucname,
 	COUNT ( pd.col_id ) AS opd,
-	SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=0 and  LEFT ( ss107, charindex( '-', ss107 ) - 1 ) <=4 THEN 1 ELSE 0 END) AS u5,
-	SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=15 and LEFT ( ss107, charindex( '-', ss107 ) - 1 )<=49 THEN 1 ELSE 0 END) AS wra,
-	SUM (CASE WHEN pd.ss108=2 and pd.ss109=1 THEN 1 ELSE 0 END) AS pws,
-	SUM (CASE WHEN pd.vs306a=1 THEN 1 ELSE 0 END) AS bcg,
-    SUM (CASE WHEN pd.vs306b=2 THEN 1 ELSE 0 END) AS opv,
-    SUM (CASE WHEN pd.vs306c=3 THEN 1 ELSE 0 END) AS pcv,
-    SUM (CASE WHEN pd.vs306d=4 THEN 1 ELSE 0 END) AS penta,
-    SUM (CASE WHEN pd.vs306e=5 THEN 1 ELSE 0 END) AS rota,
-    SUM (CASE WHEN pd.vs306f=6 THEN 1 ELSE 0 END) AS ipv,
-    SUM (CASE WHEN pd.vs306g=7 THEN 1 ELSE 0 END) AS measles,
-    SUM (CASE WHEN pd.vs306i=8 THEN 1 ELSE 0 END) AS tt"))
+	SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=0 and LEFT ( ss107, charindex( '-', ss107 ) - 1 ) <=4 THEN 1 ELSE 0 END) AS u5, 
+SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=15 and LEFT ( ss107, charindex( '-', ss107 ) - 1 )<=49 THEN 1 ELSE 0 END) AS wra, 
+SUM (CASE WHEN pd.ss108=2 and pd.ss109=1 THEN 1 ELSE 0 END) AS pws, 
+SUM (CASE WHEN pd.vs306a=1 or pd.bcg=1 THEN 1 ELSE 0 END) AS bcg, 
+SUM (CASE WHEN pd.vs306b=2 or pd.opv0=1 or pd.opv1=1 or pd.opv2=1 THEN 1 ELSE 0 END) AS opv, 
+SUM (CASE WHEN pd.vs306c=3 or pd.pcv1=1 or pd.pcv1=2 or pd.pcv3=1THEN 1 ELSE 0 END) AS pcv, 
+SUM (CASE WHEN pd.vs306d=4 or pd.penta1=1 or pd.penta2=1 or pd.penta3=1 THEN 1 ELSE 0 END) AS penta, 
+SUM (CASE WHEN pd.vs306e=5 or pd.rota1=1 or pd.rota2=1 THEN 1 ELSE 0 END) AS rota, 
+SUM (CASE WHEN pd.vs306f=6 or pd.ipv1=1 or pd.ipv2=1 THEN 1 ELSE 0 END) AS ipv, 
+SUM (CASE WHEN pd.vs306g=7 or measles1=1 or measles2=1 THEN 1 ELSE 0 END) AS measles, 
+SUM (CASE WHEN pd.tcv=1 THEN 1 ELSE 0 END) AS tcv, 
+SUM (CASE WHEN pd.dpt=1 THEN 1 ELSE 0 END) AS dpt, 
+SUM (CASE WHEN pd.vs306i=8 THEN 1 ELSE 0 END) AS tt "))
             ->leftJoin('uclist', 'pd.ss104', '=', 'uclist.uccode') ;
         $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname');
         $sql->where(function ($query) {
