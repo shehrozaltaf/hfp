@@ -1,5 +1,5 @@
 @extends('layouts.simple.master')
-@section('title',  trans('lang.vaccination_report_main_heading')  )
+@section('title',  trans('lang.children_vaccination_report_main_heading')  )
 
 @section('css')
 
@@ -9,11 +9,11 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>{{ trans('lang.vaccination_report_main_heading') }}</h3>
+    <h3>{{ trans('lang.children_vaccination_report_main_heading') }}</h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item active">{{ trans('lang.vaccination_report_main_heading') }}</li>
+    <li class="breadcrumb-item active">{{ trans('lang.children_vaccination_report_main_heading') }}</li>
 @endsection
 
 @section('content')
@@ -116,76 +116,100 @@
                                     <tr>
                                         <th>District</th>
                                         <th>UC</th>
-                                        <th>OPD</th>
                                         <th>Under 5</th>
-                                        <th>WRAs</th>
-                                        <th>PWs</th>
-                                        <th>BCG</th>
-                                        <th>OPV</th>
-                                        <th>PCV</th>
-                                        <th>Penta</th>
-                                        <th>Rota</th>
-                                        <th>IPV</th>
-                                        <th>Measles</th>
-                                        <th>TCV</th>
-                                        <th>DPT</th>
-                                        <th>TT</th>
+                                        <th>opv0</th>
+                                        <th>bcg</th>
+                                        <th>hepb</th>
+                                        <th>penta1</th>
+                                        <th>opv1</th>
+                                        <th>pcv1</th>
+                                        <th>rota1</th>
+                                        <th>penta2</th>
+                                        <th>opv2</th>
+                                        <th>pcv2</th>
+                                        <th>rota2</th>
+                                        <th>penta3</th>
+                                        <th>opv3</th>
+                                        <th>pcv3</th>
+                                        <th>ipv1</th>
+                                        <th>measles1</th>
+                                        <th>tcv</th>
+                                        <th>ipv2</th>
+                                        <th>measles2</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @php
-                                       $total_opd = 0;
                                        $total_u5 = 0;
-                                       $total_wra = 0;
-                                       $total_pws = 0;
-                                       $total_bcg = 0;
-                                       $total_opv = 0;
-                                       $total_pcv = 0;
-                                       $total_penta = 0;
-                                       $total_rota = 0;
-                                       $total_ipv = 0;
-                                       $total_measles = 0;
+                                       $total_opv0 = 0;
+                                       $total_bcg= 0;
+                                       $total_hepb = 0;
+                                       $total_penta1 = 0;
+                                       $total_opv1 = 0;
+                                       $total_pcv1 = 0;
+                                       $total_rota1 = 0;
+                                       $total_penta2 = 0;
+                                       $total_opv2 = 0;
+                                       $total_pcv2 = 0;
+                                       $total_rota2 = 0;
+                                       $total_penta3 = 0;
+                                       $total_opv3 = 0;
+                                       $total_pcv3 = 0;
+                                       $total_ipv1 = 0;
+                                       $total_measles1 = 0;
                                        $total_tcv = 0;
-                                       $total_dpt = 0;
-                                       $total_tt = 0;
-                                       
-                                    @endphp
+                                       $total_ipv2 = 0;
+                                       $total_measles2 = 0;
+                                   @endphp
                                     @if(isset($data['getData']) && $data['getData']!='')
                                         @foreach($data['getData'] as $k=>$v)
                                         @php
-                                       $total_opd += (isset($v->opd) && $v->opd != '' ? $v->opd : 0);
                                        $total_u5 += (isset($v->u5) && $v->u5 != '' ? $v->u5 : 0);
-	                                   $total_wra += (isset($v->wra) && $v->wra != '' ? $v->wra : 0);
-	                                   $total_pws += (isset($v->pws) && $v->pws != '' ? $v->pws : 0);
+	                                   $total_opv0 += (isset($v->opv0) && $v->opv0 != '' ? $v->opv0 : 0);
 	                                   $total_bcg += (isset($v->bcg) && $v->bcg != '' ? $v->bcg : 0);
-	                                   $total_opv += (isset($v->opv) && $v->opv != '' ? $v->opv : 0);
-	                                   $total_pcv += (isset($v->pcv) && $v->pcv != '' ? $v->pcv : 0);
-	                                   $total_penta+= (isset($v->penta) && $v->penta != '' ? $v->penta : 0);
-	                                   $total_rota += (isset($v->rota) && $v->rota != '' ? $v->rota : 0);
-	                                   $total_ipv += (isset($v->ipv) && $v->ipv != '' ? $v->ipv : 0);
-	                                   $total_measles += (isset($v->measles) && $v->measles != '' ? $v->measles : 0);
-	                                   $total_tcv += (isset($v->tcv) && $v->tcv != '' ? $v->tcv : 0);
-	                                   $total_dpt += (isset($v->dpt) && $v->dpt != '' ? $v->dpt : 0);
-	                                   $total_tt += (isset($v->tt) && $v->tt != '' ? $v->tt : 0);
-	                                   
+	                                   $total_hepb += (isset($v->hepb) && $v->hepb != '' ? $v->hepb : 0);
+	                                   $total_penta1 += (isset($v->penta1) && $v->penta1 != '' ? $v->penta1 : 0);
+	                                   $total_opv1 += (isset($v->opv1) && $v->opv1 != '' ? $v->opv1 : 0);
+	                                   $total_pcv1 += (isset($v->pcv1) && $v->pcv1 != '' ? $v->pcv1 : 0);
+	                                   $total_rota1 += (isset($v->rota1) && $v->rota1 != '' ? $v->rota1 : 0);
+	                                   $total_penta2 += (isset($v->penta2) && $v->penta2 != '' ? $v->penta2 : 0);
+	                                   $total_opv2 += (isset($v->opv2) && $v->opv2 != '' ? $v->opv2 : 0);
+	                                   $total_pcv2 += (isset($v->pcv2) && $v->pcv2 != '' ? $v->pcv2 : 0);
+	                                   $total_rota2 += (isset($v->rota2) && $v->rota2 != '' ? $v->rota2 : 0);
+	                                   $total_penta3 += (isset($v->penta3) && $v->penta3 != '' ? $v->penta3 : 0);
+                                       $total_opv3 += (isset($v->opv3) && $v->opv3 != '' ? $v->opv3 : 0);
+                                       $total_pcv3 += (isset($v->pcv3) && $v->pcv3 != '' ? $v->pcv3 : 0);
+                                       $total_ipv1 += (isset($v->ipv1) && $v->ipv1 != '' ? $v->ipv1 : 0);
+                                       $total_measles1 += (isset($v->measles1) && $v->measles1 != '' ? $v->measles1 : 0);
+                                       $total_tcv += (isset($v->tcv) && $v->tcv != '' ? $v->tcv : 0);
+                                       $total_ipv2 += (isset($v->ipv2) && $v->ipv2 != '' ? $v->ipv2 : 0);
+                                       $total_measles2 += (isset($v->measles2) && $v->measles2 != '' ? $v->measles2 : 0);
+
                                        @endphp
                                             <tr class="red">
                                                 <td class="p-1">{{$v->distname}}</td>
                                                 <td class="p-1">{{$v->ucname}}</td>
-                                                <td class="p-1">{{$v->opd}}</td>
                                                 <td class="p-1">{{$v->u5}}</td>
-                                                <td class="p-1">{{$v->wra}}</td>
-                                                <td class="p-1">{{$v->pws}}</td>
+                                                <td class="p-1">{{$v->opv0}}</td>
                                                 <td class="p-1">{{$v->bcg}}</td>
-                                                <td class="p-1">{{$v->opv}}</td>
-                                                <td class="p-1">{{$v->pcv}}</td>
-                                                <td class="p-1">{{$v->penta}}</td>
-                                                <td class="p-1">{{$v->rota}}</td>
-                                                <td class="p-1">{{$v->ipv}}</td>
-                                                <td class="p-1">{{$v->measles}}</td>
+                                                <td class="p-1">{{$v->hepb}}</td>
+                                                <td class="p-1">{{$v->penta1}}</td>
+                                                <td class="p-1">{{$v->opv1}}</td>
+                                                <td class="p-1">{{$v->pcv1}}</td>
+                                                <td class="p-1">{{$v->rota1}}</td>
+                                                <td class="p-1">{{$v->penta2}}</td>
+                                                <td class="p-1">{{$v->opv2}}</td>
+                                                <td class="p-1">{{$v->pcv2}}</td>
+                                                <td class="p-1">{{$v->rota2}}</td>
+                                                <td class="p-1">{{$v->penta3}}</td>
+                                                <td class="p-1">{{$v->opv3}}</td>
+                                                <td class="p-1">{{$v->pcv3}}</td>
+                                                <td class="p-1">{{$v->ipv1}}</td>
+                                                <td class="p-1">{{$v->measles1}}</td>
                                                 <td class="p-1">{{$v->tcv}}</td>
-                                                <td class="p-1">{{$v->dpt}}</td>
-                                                <td class="p-1">{{$v->tt}}</td>
+                                                <td class="p-1">{{$v->ipv2}}</td>
+                                                <td class="p-1">{{$v->measles2}}</td>
+
                                             </tr>
                                         @endforeach
                                     @endif
@@ -193,21 +217,27 @@
                                     <tfoot>
                                     <tr>
                                         <th>Total</th>
-                                        <th>--</th>
-                                        <th class="p-1"><?= $total_opd ?></th>
+                                        <th>--</th>                                       
                                         <th class="p-1"><?= $total_u5 ?></th>
-                                        <th class="p-1"><?= $total_wra ?></th>
-                                        <th class="p-1"><?= $total_pws ?></th>
+                                        <th class="p-1"><?= $total_opv0 ?></th>
                                         <th class="p-1"><?= $total_bcg ?></th>
-                                        <th class="p-1"><?= $total_opv ?></th>
-                                        <th class="p-1"><?= $total_pcv ?></th>
-                                        <th class="p-1"><?= $total_penta ?></th>
-                                        <th class="p-1"><?= $total_rota ?></th>
-                                        <th class="p-1"><?= $total_ipv ?></th>
-                                        <th class="p-1"><?= $total_measles ?></th>
-                                        <th class="p-1"><?= $total_tcv ?></th>
-                                        <th class="p-1"><?= $total_dpt ?></th>
-                                        <th class="p-1"><?= $total_tt ?></th>
+                                        <th class="p-1"><?= $total_hepb ?></th>
+                                        <th class="p-1"><?= $total_penta1 ?></th>
+                                        <th class="p-1"><?= $total_opv1 ?></th>
+                                        <th class="p-1"><?= $total_pcv1 ?></th>
+                                        <th class="p-1"><?= $total_rota1 ?></th>
+                                        <th class="p-1"><?= $total_penta2 ?></th>
+                                        <th class="p-1"><?= $total_opv2 ?></th>
+                                        <th class="p-1"><?= $total_pcv2 ?></th>
+                                        <th class="p-1"><?= $total_rota2 ?></th>
+                                        <th class="p-1"><?= $total_penta3 ?></th>
+                                        <th class="p-1"><?= $total_opv3 ?></th>
+                                        <th class="p-1"><?= $total_pcv3 ?></th>
+                                        <th class="p-1"><?= $total_ipv1 ?></th>
+                                        <th class="p-1"><?= $total_measles1 ?></th>
+                                        <th class="p-1"><?= $total_tcv ?></th> 
+                                        <th class="p-1"><?= $total_ipv2 ?></th>
+                                        <th class="p-1"><?= $total_measles2 ?></th>
                                        
                                     </tr>
                                     </tfoot>

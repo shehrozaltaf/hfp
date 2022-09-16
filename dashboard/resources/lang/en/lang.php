@@ -16,6 +16,12 @@ return [
     'vaccination_report_main_heading' => 'Vaccination Report',
     'vaccination_report_dt_heading' => 'Vaccination Report',
     'vaccination_report_dt_paragraph' => '',
+  
+    /*=========================children_vaccination_report=========================*/
+    'children_vaccination_report' => 'Children Vaccination Report',
+    'children_vaccination_report_main_heading' => 'Children Vaccination Report',
+    'children_vaccination_report_dt_heading' => 'Children Vaccination Report',
+    'children_vaccination_report_dt_paragraph' => '',
 
     /*=========================patient_visit_report=========================*/
     'patient_visit_report' => 'Patient Visit Report',
