@@ -42,7 +42,7 @@ class Children_vaccination_report_Model extends Model
     sum(case when pd.measles2=1 then 1 else 0 end) as measles2"))
             ->leftJoin('uclist', 'pd.ss104', '=', 'uclist.uccode') ;
 
-        //$sql->whereRaw('LEFT ( ss107, charindex( '-', ss107 ) - 1 ) <= 4',4);
+        $sql->whereRaw("LEFT ( ss107, charindex( '-', ss107 ) - 1 ) <= 4");
 
         $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname');
         $sql->orderBy('uccode');
