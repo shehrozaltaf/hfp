@@ -34,15 +34,7 @@
                                     <select class="select2 form-control province_filter" id="province_filter"
                                         name="province_filter"
                                         onchange="changeProvince('province_filter','district_filter')">
-                                        <option value="0" readonly>All Provinces</option>
-                                        @if(isset($data['province']) && $data['province']!='')
-                                        @foreach($data['province'] as $k=>$d)
-                                        <option value="{{$d->provcode}}"
-                                            {{  $data['province_slug'] == $d->provcode ? 'selected' :''}}>
-                                            {{$d->provname}} ({{$d->provcode}})
-                                        </option>
-                                        @endforeach
-                                        @endif
+                                        <option value="2" selected>Punjab</option>
                                     </select>
                                 </div>
                             </div>
@@ -161,10 +153,10 @@
                                     $total_undernutrition = 0;
                                     $total_obesity = 0;
                                     @endphp
-                                   
+
                                     @if(isset($data['getData']) && $data['getData']!='')
                                     @foreach($data['getData'] as $k=>$v)
-                                   
+
                                     @php
                                     $total_patients += (isset($v->patients) && $v->patients != '' ? $v->patients : 0);
                                     $total_upper_respiratory_tract_infection +=
@@ -230,12 +222,12 @@
                                         <td class="p-1">{{$v->obesity}}</td>
                                     </tr>
                                     @endforeach
-                                    @endif 
+                                    @endif
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        
+
                                         <th>Total</th>
                                         <th>--</th>
                                         <th class="p-1"><?= $total_patients ?></th>
@@ -311,10 +303,9 @@ $(document).ready(function() {
         grid: true,
         min: dateToTS(new Date(year, 6, 1)),
         max: dateToTS(new Date(yyyy, mm - 1, dd)),
-        from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month']-1?>,
-            <?=$data['from_day']?>)),
+        from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month'] - 1?>, <?=$data['from_day']?>)),
         // from: dateToTS(new Date(year, 6, 1)),
-        to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month']-1?>, <?=$data['to_day']?>)),
+        to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month'] - 1?>, <?=$data['to_day']?>)),
         prettify: tsToDate
     });
 

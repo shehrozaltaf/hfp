@@ -34,15 +34,7 @@
                                         <select class="select2 form-control province_filter" id="province_filter"
                                                 name="province_filter"
                                                 onchange="changeProvince('province_filter','district_filter')">
-                                            <option value="0" readonly >All Provinces</option>
-                                            @if(isset($data['province']) && $data['province']!='')
-                                                @foreach($data['province'] as $k=>$d)
-                                                    <option
-                                                        value="{{$d->provcode}}" {{  $data['province_slug'] == $d->provcode ? 'selected' :''}}>
-                                                        {{$d->provname}} ({{$d->provcode}})
-                                                    </option>
-                                                @endforeach
-                                            @endif
+                                            <option value="2" selected>Punjab</option>
                                         </select>
                                     </div>
                                 </div>

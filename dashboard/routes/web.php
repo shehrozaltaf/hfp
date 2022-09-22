@@ -28,14 +28,17 @@ Route::get('/index', function () {
 
 
 Route::get('/dashboard', function () {
+    if(!isset(Auth::user()->id) ||Auth::user()->id==''){
+        return redirect('/index');
+    }
     /*==========Log=============*/
     $trackarray = array(
         "activityName" => "Dashboard",
         "action" => "View Dashboard -> Function: Dashboard/index()",
         "PostData" => "",
         "affectedKey" => "",
-        "idUser" => Auth::user()->id,
-        "username" => Auth::user()->username,
+        "idUser" => (isset(Auth::user()->id) && Auth::user()->id!=''?Auth::user()->id:0),
+        "username" => (isset(Auth::user()->username) && Auth::user()->username!=''?Auth::user()->username:0),
     );
     $trackarray["mainResult"] = "Success";
     $trackarray["result"] = "View Success";

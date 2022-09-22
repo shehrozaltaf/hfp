@@ -33,15 +33,8 @@
                                         <select class="select2 form-control province_filter" id="province_filter"
                                                 name="province_filter"
                                                 onchange="changeProvince('province_filter','district_filter')">
-                                            <option value="0" readonly >All Provinces</option>
-                                            @if(isset($data['province']) && $data['province']!='')
-                                                @foreach($data['province'] as $k=>$d)
-                                                    <option
-                                                        value="{{$d->provcode}}" {{  $data['province_slug'] == $d->provcode ? 'selected' :''}}>
-                                                        {{$d->provname}} ({{$d->provcode}})
-                                                    </option>
-                                                @endforeach
-                                            @endif
+                                            <option value="2" selected>Punjab</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -217,7 +210,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>Total</th>
-                                        <th>--</th>                                       
+                                        <th>--</th>
                                         <th class="p-1"><?= $total_u5 ?></th>
                                         <th class="p-1"><?= $total_opv0 ?></th>
                                         <th class="p-1"><?= $total_bcg ?></th>
@@ -235,10 +228,10 @@
                                         <th class="p-1"><?= $total_pcv3 ?></th>
                                         <th class="p-1"><?= $total_ipv1 ?></th>
                                         <th class="p-1"><?= $total_measles1 ?></th>
-                                        <th class="p-1"><?= $total_tcv ?></th> 
+                                        <th class="p-1"><?= $total_tcv ?></th>
                                         <th class="p-1"><?= $total_ipv2 ?></th>
                                         <th class="p-1"><?= $total_measles2 ?></th>
-                                       
+
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -288,10 +281,10 @@
                 type: "double",
                 grid: true,
                 min: dateToTS(new Date(year, 6, 1)),
-                max: dateToTS(new Date(yyyy, mm-1, dd)),
-                from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month']-1?>, <?=$data['from_day']?>)),
+                max: dateToTS(new Date(yyyy, mm - 1, dd)),
+                from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month'] - 1?>, <?=$data['from_day']?>)),
                 // from: dateToTS(new Date(year, 6, 1)),
-                to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month']-1?>, <?=$data['to_day']?>)),
+                to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month'] - 1?>, <?=$data['to_day']?>)),
                 prettify: tsToDate
             });
 

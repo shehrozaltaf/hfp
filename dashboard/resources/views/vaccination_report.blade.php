@@ -33,15 +33,7 @@
                                         <select class="select2 form-control province_filter" id="province_filter"
                                                 name="province_filter"
                                                 onchange="changeProvince('province_filter','district_filter')">
-                                            <option value="0" readonly >All Provinces</option>
-                                            @if(isset($data['province']) && $data['province']!='')
-                                                @foreach($data['province'] as $k=>$d)
-                                                    <option
-                                                        value="{{$d->provcode}}" {{  $data['province_slug'] == $d->provcode ? 'selected' :''}}>
-                                                        {{$d->provname}} ({{$d->provcode}})
-                                                    </option>
-                                                @endforeach
-                                            @endif
+                                            <option value="2" selected>Punjab</option>
                                         </select>
                                     </div>
                                 </div>
@@ -148,7 +140,7 @@
                                        $total_tcv = 0;
                                        $total_dpt = 0;
                                        $total_tt = 0;
-                                       
+
                                     @endphp
                                     @if(isset($data['getData']) && $data['getData']!='')
                                         @foreach($data['getData'] as $k=>$v)
@@ -167,7 +159,7 @@
 	                                   $total_tcv += (isset($v->tcv) && $v->tcv != '' ? $v->tcv : 0);
 	                                   $total_dpt += (isset($v->dpt) && $v->dpt != '' ? $v->dpt : 0);
 	                                   $total_tt += (isset($v->tt) && $v->tt != '' ? $v->tt : 0);
-	                                   
+
                                        @endphp
                                             <tr class="red">
                                                 <td class="p-1">{{$v->distname}}</td>
@@ -208,7 +200,7 @@
                                         <th class="p-1"><?= $total_tcv ?></th>
                                         <th class="p-1"><?= $total_dpt ?></th>
                                         <th class="p-1"><?= $total_tt ?></th>
-                                       
+
                                     </tr>
                                     </tfoot>
                                 </table>

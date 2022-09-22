@@ -116,17 +116,7 @@
                                                 <label class="col-form-label" for="province">Province: </label>
                                                 <select class="form-control col-sm-12" id="province" required
                                                         onchange="changeProvince('province','district')">
-                                                    <option value="0">Select Province</option>
-                                                    @if (isset($data['province']) && $data['province'] != '')
-                                                        @foreach ($data['province'] as $keys=>$d)
-                                                            <option
-                                                                value="{{(isset($d->provcode) && $d->provcode!=''?$d->provcode:'')}}"
-                                                                data-provname="{{(isset($d->provname) && $d->provname!=''?$d->provname:'')}}"
-                                                            >
-                                                                {{(isset($d->provname) && $d->provname!=''?$d->provname:'')}}
-                                                            </option>
-                                                        @endforeach
-                                                    @endif
+                                                    <option value="2" selected>Punjab</option>
                                                 </select>
                                             </div>
 

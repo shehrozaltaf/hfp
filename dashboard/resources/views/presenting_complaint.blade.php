@@ -34,15 +34,7 @@
                                     <select class="select2 form-control province_filter" id="province_filter"
                                         name="province_filter"
                                         onchange="changeProvince('province_filter','district_filter')">
-                                        <option value="0" readonly>All Provinces</option>
-                                        @if(isset($data['province']) && $data['province']!='')
-                                        @foreach($data['province'] as $k=>$d)
-                                        <option value="{{$d->provcode}}"
-                                            {{  $data['province_slug'] == $d->provcode ? 'selected' :''}}>
-                                            {{$d->provname}} ({{$d->provcode}})
-                                        </option>
-                                        @endforeach
-                                        @endif
+                                        <option value="2" selected>Punjab</option>
                                     </select>
                                 </div>
                             </div>
@@ -211,12 +203,12 @@
                                         <td class="p-1">{{$v->Constipation}}</td>
                                     </tr>
                                     @endforeach
-                                    @endif 
-                                     
+                                    @endif
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        
+
                                         <th>Total</th>
                                         <th>--</th>
                                         <th class="p-1"><?= $total_patients ?></th>
@@ -293,10 +285,9 @@ $(document).ready(function() {
         grid: true,
         min: dateToTS(new Date(year, 6, 1)),
         max: dateToTS(new Date(yyyy, mm - 1, dd)),
-        from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month']-1?>,
-            <?=$data['from_day']?>)),
+        from: dateToTS(new Date(<?=$data['from_year']?>, <?=$data['from_month'] - 1?>, <?=$data['from_day']?>)),
         // from: dateToTS(new Date(year, 6, 1)),
-        to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month']-1?>, <?=$data['to_day']?>)),
+        to: dateToTS(new Date(<?=$data['to_year']?>, <?=$data['to_month'] - 1?>, <?=$data['to_day']?>)),
         prettify: tsToDate
     });
 
@@ -325,27 +316,25 @@ $(document).ready(function() {
 function changeProvince(pro, dist) {
     var data = {};
     data['province'] = $('#' + pro).val();
-    if (data['province'] != '' && data['province'] != undefined && data['province'] != '0' && data['province'] !=
-        '$1') {
-        CallAjax('{{ url(' / districts / changeProvince / ') }}', data, 'POST', function(res) {
-            var slug = $('#hidden_slug_district').val();
+    if (data['province'] != '' && data['province'] != undefined && data['province'] != '0' && data['province'] != '$1') {
+        CallAjax('{{ url('/districts/changeProvince/') }}', data, 'POST', function (res) {
+            var slug=$('#hidden_slug_district').val();
             var items = '<option value="0">Select District</option>';
             if (res != '' && JSON.parse(res).length > 0) {
                 var response = JSON.parse(res);
                 try {
-                    $.each(response, function(i, v) {
-                        items += '<option value="' + v.distcode + '"  ' + (slug == v.distcode ?
-                                'selected' : '') +
-                            ' data-district="' + v.distname + '">' + v.distname + ' (' + v.distcode +
-                            ')</option>';
+                    $.each(response, function (i, v) {
+                        items += '<option value="' + v.distcode + '"  ' + (slug==v.distcode?'selected':'')+
+                            ' data-district="' + v.distname + '">' + v.distname + ' (' + v.distcode + ')</option>';
                     })
-                } catch (e) {}
+                } catch (e) {
+                }
             }
             $('#' + dist).html('').html(items);
             $('#uc_filter').val(0);
-            setTimeout(function() {
+            setTimeout(function () {
                 changeDistrict('district_filter', 'uc_filter');
-            }, 1000);
+            },1000);
 
         });
     } else {
