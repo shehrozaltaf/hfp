@@ -21,7 +21,7 @@ class Custom_Model extends Model
             $sql->where(function ($query) use ($dist) {
                 $exp_dist = explode(',', $dist);
                 foreach ($exp_dist as $d) {
-                    $query->orWhere('dist_id', '=', trim($d));
+                    $query->orWhere('distcode', '=', trim($d));
                 }
             });
         }
