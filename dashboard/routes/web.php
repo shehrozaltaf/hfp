@@ -27,31 +27,27 @@ Route::get('/index', function () {
 })->name('/');
 
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', 'Dashboard@index')->middleware(['auth'])->name('dashboard');
+
+/*Route::get('/dashboard', function () {
     if(!isset(Auth::user()->id) ||Auth::user()->id==''){
         return redirect('/index');
     }
-    /*==========Log=============*/
-    $trackarray = array(
-        "activityName" => "Dashboard",
-        "action" => "View Dashboard -> Function: Dashboard/index()",
-        "PostData" => "",
-        "affectedKey" => "",
-        "idUser" => (isset(Auth::user()->id) && Auth::user()->id!=''?Auth::user()->id:0),
-        "username" => (isset(Auth::user()->username) && Auth::user()->username!=''?Auth::user()->username:0),
-    );
-    $trackarray["mainResult"] = "Success";
-    $trackarray["result"] = "View Success";
-    Custom_Model::trackLogs($trackarray, "all_logs");
-    /*==========Log=============*/
-
     return view('dashboard.index');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');*/
 
 Route::get('/dashboard2', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard2');
 
+
+/*=====================================complaints=====================================*/
+Route::get('complaints', 'Complaints@index')->middleware(['auth'])->name('complaints');
+Route::get('complaints/getTopComplaint', 'Complaints@getTopComplaint')->middleware(['auth'])->name('getTopComplaint');
+
+/*=====================================diagnosis=====================================*/
+Route::get('diagnosis', 'Diagnosis@index')->middleware(['auth'])->name('diagnosis');
+Route::get('diagnosis/getTopDiagnosis', 'Diagnosis@getTopDiagnosis')->middleware(['auth'])->name('getTopDiagnosis');
 
 /*=====================================vaccination_report=====================================*/
 Route::get('vaccination_report', 'Vaccination_report@index')->middleware(['auth'])->name('vaccination_report');
@@ -65,8 +61,8 @@ Route::get('children_vaccination_report', 'Children_vaccination_report@index')->
 /*=====================================Presenting_Complaint=====================================*/
 Route::get('presenting_complaint', 'Presenting_Complaint@index')->middleware(['auth'])->name('presenting_complaint');
 
-/*=====================================Diagnosis=====================================*/
-Route::get('diagnosis', 'Diagnosis@index')->middleware(['auth'])->name('diagnosis');
+/*=====================================DiagnosisReport=====================================*/
+Route::get('diagnosis_report', 'Diagnosis_report@index')->middleware(['auth'])->name('diagnosis_report');
 
 
 

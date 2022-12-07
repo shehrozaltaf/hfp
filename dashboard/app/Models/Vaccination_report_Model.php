@@ -15,37 +15,57 @@ class Vaccination_report_Model extends Model
 
     public static function getData($searchFilter)
     {
-        $sql = DB::table('patientdetails as pd')->select(DB::raw("
-    uclist.distname,
-	uclist.uccode,
-	uclist.ucname,
-	COUNT ( pd.col_id ) AS opd,
-	SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=0 and LEFT ( ss107, charindex( '-', ss107 ) - 1 ) <=4 THEN 1 ELSE 0 END) AS u5, 
-SUM (CASE WHEN LEFT ( ss107, charindex( '-', ss107 ) - 1 ) >=15 and LEFT ( ss107, charindex( '-', ss107 ) - 1 )<=49 THEN 1 ELSE 0 END) AS wra, 
-SUM (CASE WHEN pd.ss108=2 and pd.ss109=1 THEN 1 ELSE 0 END) AS pws, 
-SUM (CASE WHEN pd.vs306a=1 or pd.bcg=1 THEN 1 ELSE 0 END) AS bcg, 
-SUM (CASE WHEN pd.vs306b=2 or pd.opv0=1 or pd.opv1=1 or pd.opv2=1 THEN 1 ELSE 0 END) AS opv, 
-SUM (CASE WHEN pd.vs306c=3 or pd.pcv1=1 or pd.pcv1=2 or pd.pcv3=1THEN 1 ELSE 0 END) AS pcv, 
-SUM (CASE WHEN pd.vs306d=4 or pd.penta1=1 or pd.penta2=1 or pd.penta3=1 THEN 1 ELSE 0 END) AS penta, 
-SUM (CASE WHEN pd.vs306e=5 or pd.rota1=1 or pd.rota2=1 THEN 1 ELSE 0 END) AS rota, 
-SUM (CASE WHEN pd.vs306f=6 or pd.ipv1=1 or pd.ipv2=1 THEN 1 ELSE 0 END) AS ipv, 
-SUM (CASE WHEN pd.vs306g=7 or measles1=1 or measles2=1 THEN 1 ELSE 0 END) AS measles, 
-SUM (CASE WHEN pd.tcv=1 THEN 1 ELSE 0 END) AS tcv, 
-SUM (CASE WHEN pd.dpt=1 THEN 1 ELSE 0 END) AS dpt, 
-SUM (CASE WHEN pd.vs306i=8 THEN 1 ELSE 0 END) AS tt "))
-            ->leftJoin('uclist', 'pd.ss104', '=', 'uclist.uccode') ;
-        $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname');      
-        $sql->orderBy('uccode'); 
-        $sql->where(function ($query) {
-            $query->where('pd.colflag')
-                ->orWhere('pd.colflag', '=', '0');
+        $sql = DB::table('vaccination as vv')->select(DB::raw("
+uclist.distname,
+uclist.ucname,
+COUNT ( pd.col_id ) AS patients,
+SUM (CASE WHEN CAST ( pd.ss104y AS INT ) <= 4 THEN 1 ELSE 0 END) AS under_5,
+SUM (CASE WHEN pd.ss103 = 2 AND CAST ( pd.ss104y AS INT ) BETWEEN 14 AND 49 THEN 1 ELSE 0 END) AS wra,
+SUM ( CASE WHEN vv.bcg = 1 THEN 1 ELSE 0 END ) AS bcg,
+SUM ( CASE WHEN vv.opv0 = 1 THEN 1 ELSE 0 END ) AS opv0,
+SUM ( CASE WHEN vv.hepb = 1 THEN 1 ELSE 0 END ) AS hepatitis_b,
+SUM ( CASE WHEN vv.opv1 = 1 THEN 1 ELSE 0 END ) AS opv1,
+SUM ( CASE WHEN vv.penta1 = 1 THEN 1 ELSE 0 END ) AS penta1,
+SUM ( CASE WHEN vv.pcv1 = 1 THEN 1 ELSE 0 END ) AS pcv1,
+SUM ( CASE WHEN vv.rota1 = 1 THEN 1 ELSE 0 END ) AS rota1,
+SUM ( CASE WHEN vv.opv2 = 1 THEN 1 ELSE 0 END ) AS opv2,
+SUM ( CASE WHEN vv.penta2 = 1 THEN 1 ELSE 0 END ) AS penta2,
+SUM ( CASE WHEN vv.pcv2 = 1 THEN 1 ELSE 0 END ) AS pcv2,
+SUM ( CASE WHEN vv.rota2 = 1 THEN 1 ELSE 0 END ) AS rota2,
+SUM ( CASE WHEN vv.opv3 = 1 THEN 1 ELSE 0 END ) AS opv3,
+SUM ( CASE WHEN vv.penta3 = 1 THEN 1 ELSE 0 END ) AS penta3,
+SUM ( CASE WHEN vv.pcv3 = 1 THEN 1 ELSE 0 END ) AS pcv3,
+SUM ( CASE WHEN vv.ipv1 = 1 THEN 1 ELSE 0 END ) AS ipv1,
+SUM ( CASE WHEN vv.tcv = 1 THEN 1 ELSE 0 END ) AS tcv,
+SUM ( CASE WHEN vv.ipv2 = 1 THEN 1 ELSE 0 END ) AS ipv2,
+SUM ( CASE WHEN vv.measles2 = 1 THEN 1 ELSE 0 END ) AS measles2 "));
+        $sql->leftJoin('patientdetailsV2 as pd', function ($join) {
+            $join->on('vv._uuid', '=', 'pd._uid')->where(function ($query) {
+                $query->where('pd.colflag')
+                    ->orWhere('pd.colflag', '=', 0);
+            });
         });
-        $sql->where(function ($query) {
-            $query->where('uclist.colflag')
-                ->orWhere('uclist.colflag', '=', '0');
+        $sql->leftJoin('hf_list', function ($join) {
+            $join->on('vv.facilityCode', '=', 'hf_list.hf_code')->where(function ($query) {
+                $query->where('hf_list.colflag')
+                    ->orWhere('hf_list.colflag', '=', 0);
+            });
+        });
+        $sql->leftJoin('uclist', function ($join) {
+            $join->on('hf_list.uccode', '=', 'uclist.uccode')->where(function ($query) {
+                $query->where('uclist.colflag')
+                    ->orWhere('uclist.colflag', '=', 0);
+            });
         });
 
-        $sql->where('pd.username', 'Not like', '%testuser2%');
+        $sql->where('uclist.uccode', '!=', '');
+        $sql->where(function ($query) {
+            $query->where('vv.colflag')
+                ->orWhere('vv.colflag', '=', 0);
+        });
+
+        $sql->where('vv.username', 'Not like', '%testuser2%');
+
         if (isset($searchFilter['province']) && $searchFilter['province'] != '' && $searchFilter['province'] != 0) {
             $sql->where('uclist.provcode', $searchFilter['province']);
         }
@@ -56,10 +76,10 @@ SUM (CASE WHEN pd.vs306i=8 THEN 1 ELSE 0 END) AS tt "))
             $sql->where('uclist.uccode', $searchFilter['uc']);
         }
         if (isset($searchFilter['from_slug']) && $searchFilter['from_slug'] != '' && $searchFilter['from_slug'] != 0 && $searchFilter['from_slug'] != '1970-01-01') {
-            $sql->whereRaw("pd.ss101>='".$searchFilter['from_slug']."'");
+            $sql->whereRaw("pd.vdate>='".$searchFilter['from_slug']."'");
         }
         if (isset($searchFilter['to_slug']) && $searchFilter['to_slug'] != '' && $searchFilter['to_slug'] != 0 && $searchFilter['to_slug'] != '1970-01-01') {
-            $sql->whereRaw("pd.ss101<='".$searchFilter['to_slug']."'");
+            $sql->whereRaw("pd.vdate<='".$searchFilter['to_slug']."'");
         }
         if (isset(Auth::user()->district) && Auth::user()->district != '' && Auth::user()->district != '0') {
             $dist = Auth::user()->district;
@@ -70,7 +90,10 @@ SUM (CASE WHEN pd.vs306i=8 THEN 1 ELSE 0 END) AS tt "))
                 }
             });
         }
-        $data = $sql->get();
-        return $data;
+
+
+        $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname');
+        $sql->orderBy('uclist.uccode');
+        return $sql->get();
     }
 }

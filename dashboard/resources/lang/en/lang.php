@@ -10,13 +10,27 @@ return [
     'Dashboard' => 'Dashboard',
     'dashboard' => 'Dashboard',
     'Default' => 'Default',
+    'Reports' => 'Reports',
+    'reports' => 'Reports',
+
+    /*=========================complaints=========================*/
+    'complaints' => 'Complaints',
+    'complaints_main_heading' => 'Complaints',
+    'complaints_dt_heading' => 'Complaints',
+    'complaints_dt_paragraph' => '',
+
+    /*=========================diagnosis=========================*/
+    'diagnosis' => 'Diagnosis',
+    'diagnosis_main_heading' => 'Diagnosis',
+    'diagnosis_dt_heading' => 'Diagnosis',
+    'diagnosis_dt_paragraph' => '',
 
     /*=========================vaccination_report=========================*/
     'vaccination_report' => 'Vaccination Report',
     'vaccination_report_main_heading' => 'Vaccination Report',
     'vaccination_report_dt_heading' => 'Vaccination Report',
     'vaccination_report_dt_paragraph' => '',
-  
+
     /*=========================children_vaccination_report=========================*/
     'children_vaccination_report' => 'Children Vaccination Report',
     'children_vaccination_report_main_heading' => 'Children Vaccination Report',
@@ -35,11 +49,11 @@ return [
     'presenting_complaint_dt_heading' => 'Presenting Complaint Report',
     'presenting_complaint_dt_paragraph' => '',
 
-    /*=========================Diagnosis=========================*/
-    'diagnosis' => 'Diagnosis',
-    'diagnosis_main_heading' => 'Diagnosis',
-    'diagnosis_dt_heading' => 'Diagnosis',
-    'diagnosis_dt_paragraph' => '',
+    /*=========================DiagnosisReport=========================*/
+    'diagnosis_report' => 'Diagnosis Report',
+    'diagnosis_report_main_heading' => 'Diagnosis Report',
+    'diagnosis_report_dt_heading' => 'Diagnosis Report',
+    'diagnosis_report_dt_paragraph' => '',
 
     /*=========================doctors=========================*/
     'doctors' => 'Doctors',

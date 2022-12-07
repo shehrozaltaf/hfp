@@ -9,11 +9,11 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Diagnosis <small>Top 10 Diagnosis</small></h3>
+    <h3>Complaints <small>Top 10 Complaints</small></h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item active">{{ trans('lang.diagnosis_main_heading') }}</li>
+    <li class="breadcrumb-item active">{{ trans('lang.complaints_main_heading') }}</li>
 @endsection
 
 @section('content')
@@ -103,10 +103,10 @@
 
             chart.render();
 
-            var url = '{{route('getTopDiagnosis')}}';
+            var url = '{{route('getTopComplaint')}}';
             $.getJSON(url,{id:'Lahore',graph:'u5'}, function (response) {
                 chart.updateSeries([{
-                    name: 'Diagnosis',
+                    name: 'Complaints',
                     data: response
                 }])
             });
@@ -154,10 +154,10 @@
 
             chart.render();
 
-            var url = '{{route('getTopDiagnosis')}}';
+            var url = '{{route('getTopComplaint')}}';
             $.getJSON(url,{id:'Rawalpindi',graph:'u5'}, function (response) {
                 chart.updateSeries([{
-                    name: 'Diagnosis',
+                    name: 'Complaints',
                     data: response
                 }])
             });
@@ -205,10 +205,10 @@
 
             chart.render();
 
-            var url = '{{route('getTopDiagnosis')}}';
+            var url = '{{route('getTopComplaint')}}';
             $.getJSON(url,{id:'Lahore',graph:'wra'}, function (response) {
                 chart.updateSeries([{
-                    name: 'Diagnosis',
+                    name: 'Complaints',
                     data: response
                 }])
             });
@@ -256,10 +256,10 @@
 
             chart.render();
 
-            var url = '{{route('getTopDiagnosis')}}';
+            var url = '{{route('getTopComplaint')}}';
             $.getJSON(url,{id:'Rawalpindi',graph:'wra'}, function (response) {
                 chart.updateSeries([{
-                    name: 'Diagnosis',
+                    name: 'Complaints',
                     data: response
                 }])
             });

@@ -104,78 +104,53 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive2">
+                            <div class="table-responsive">
                                 <table class="display datatables" id="datatable_custom">
                                     <thead>
                                     <tr>
-                                        <th>District</th>
-                                        <th>UC</th>
-                                        <th>Doctor</th>
-                                        <th>OPD</th>
-                                        <th>Under 5</th>
-                                        <th>WRAs</th>
-                                        <th>PWs</th>
-                                        <th>Other</th>
-                                        <th>ANC</th>
-                                        <th>PNC</th>
-                                        <th>Vaccination</th>
+                                        @php
+                                            $tot_data=array();
+                                        @endphp
+                                        @if(isset($data['getData'][0]) && $data['getData']!='')
+                                            @foreach($data['getData'][0] as $k=>$v)
+                                                @if($k!='distname' && $k!='ucname'&& $k!='doctor_name')
+                                                    @php
+                                                        $key='tot_'.$k;
+                                                        $tot_data[$key] = 0;
+                                                    @endphp
+                                                @endif
+                                                <th>{{(isset($k) && $k!=''?ucfirst(str_replace('_',' ',$k)):'-')}}</th>
+                                            @endforeach
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php
-                                       $total_opd = 0;
-                                       $total_u5 = 0;
-                                       $total_wra = 0;
-                                       $total_pws = 0;
-                                       $total_other = 0;
-                                       $total_anc = 0;
-                                       $total_pnc = 0;
-                                       $total_vaccination = 0;
-
-                                    @endphp
                                     @if(isset($data['getData']) && $data['getData']!='')
                                         @foreach($data['getData'] as $k=>$v)
-                                        @php
-                                       $total_opd += (isset($v->opd) && $v->opd != '' ? $v->opd : 0);
-                                       $total_u5 += (isset($v->u5) && $v->u5 != '' ? $v->u5 : 0);
-	                                   $total_wra += (isset($v->wra) && $v->wra != '' ? $v->wra : 0);
-	                                   $total_pws += (isset($v->pws) && $v->pws != '' ? $v->pws : 0);
-	                                   $total_other += (isset($v->other) && $v->other != '' ? $v->other : 0);
-	                                   $total_anc += (isset($v->anc) && $v->anc != '' ? $v->anc : 0);
-	                                   $total_pnc += (isset($v->pnc) && $v->pnc != '' ? $v->pnc : 0);
-                                       $total_vaccination += (isset($v->vaccination) && $v->vaccination != '' ? $v->vaccination : 0);
-
-                                       @endphp
-                                            <tr class="red">
-                                                <td class="p-1">{{$v->distname}}</td>
-                                                <td class="p-1">{{$v->ucname}}</td>
-                                                <td class="p-1">{{$v->dr_name}}</td>
-                                                <td class="p-1">{{$v->opd}}</td>
-                                                <td class="p-1">{{$v->u5}}</td>
-                                                <td class="p-1">{{$v->wra}}</td>
-                                                <td class="p-1">{{$v->pws}}</td>
-                                                <td class="p-1">{{$v->other}}</td>
-                                                <td class="p-1">{{$v->anc}}</td>
-                                                <td class="p-1">{{$v->pnc}}</td>
-                                                <td class="p-1">{{$v->vaccination}}</td>
+                                            <tr>
+                                                @foreach($v as $kk=>$vv)
+                                                    @if($kk!='distname' && $kk!='ucname' && $kk!='doctor_name')
+                                                        @php
+                                                            $key_val='tot_'.$kk;
+                                                            $tot_data[$key_val] += (isset($vv) && $vv != '' ? $vv : 0);
+                                                        @endphp
+                                                    @endif
+                                                    <td>{{(isset($vv) && $vv!=''?$vv:0)}}</td>
+                                                @endforeach
                                             </tr>
                                         @endforeach
                                     @endif
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                    <th>Total</th>
-                                        <th>--</th>
-                                        <th>--</th>
-                                        <th class="p-1"><?= $total_opd ?></th>
-                                        <th class="p-1"><?= $total_u5 ?></th>
-                                        <th class="p-1"><?= $total_wra ?></th>
-                                        <th class="p-1"><?= $total_pws ?></th>
-                                        <th class="p-1"><?= $total_other ?></th>
-                                        <th class="p-1"><?= $total_anc ?></th>
-                                        <th class="p-1"><?= $total_pnc ?></th>
-                                        <th class="p-1"><?= $total_vaccination ?></th>
+                                        <th>Total</th>
+                                        <th>-</th>
+                                        @if(isset($tot_data) && $tot_data!='')
+                                            @foreach($tot_data as $k=>$v)
 
+                                                <th>{{$v}}</th>
+                                            @endforeach
+                                        @endif
                                     </tr>
                                     </tfoot>
                                 </table>

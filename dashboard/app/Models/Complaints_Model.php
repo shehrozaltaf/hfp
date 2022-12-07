@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class Presenting_Complaint_Model extends Model
+class Complaints_Model extends Model
 {
-    use HasFactory;
 
     protected $table = 'complaints';
 
@@ -17,9 +16,7 @@ class Presenting_Complaint_Model extends Model
     {
 
         $sql = DB::table('complaints as cc')->select(DB::raw("
-    uclist.distname,
-	uclist.ucname,
-    COUNT ( DISTINCT pd._uid ) AS patients,
+    districts.distname,
 	SUM ( CASE WHEN cc.complaints = 1 THEN 1 ELSE 0 END ) AS fever,
 	SUM ( CASE WHEN cc.complaints = 2 THEN 1 ELSE 0 END ) AS reluctant_to_feed,
 	SUM ( CASE WHEN cc.complaints = 3 THEN 1 ELSE 0 END ) AS lethargy,
@@ -78,8 +75,7 @@ class Presenting_Complaint_Model extends Model
 	SUM ( CASE WHEN cc.complaints = 56 THEN 1 ELSE 0 END ) AS loose_stools,
 	SUM ( CASE WHEN cc.complaints = 57 THEN 1 ELSE 0 END ) AS blood_in_stools,
 	SUM ( CASE WHEN cc.complaints = 58 THEN 1 ELSE 0 END ) AS constipations,
-	SUM ( CASE WHEN cc.complaints = 59 THEN 1 ELSE 0 END ) AS bleeding_per_rectum"));
-
+	SUM ( CASE WHEN cc.complaints = 59 THEN 1 ELSE 0 END ) AS bleeding_per_rectum "));
         $sql->leftJoin('patientdetailsV2 as pd', function ($join) {
             $join->on('cc._uuid', '=', 'pd._uid')->where(function ($query) {
                 $query->where('pd.colflag')
@@ -92,48 +88,28 @@ class Presenting_Complaint_Model extends Model
                     ->orWhere('hf_list.colflag', '=', 0);
             });
         });
-        $sql->leftJoin('uclist', function ($join) {
-            $join->on('hf_list.uccode', '=', 'uclist.uccode')->where(function ($query) {
-                $query->where('uclist.colflag')
-                    ->orWhere('uclist.colflag', '=', 0);
+        $sql->leftJoin('districts', function ($join) {
+            $join->on('hf_list.distcode', '=', 'districts.distcode')->where(function ($query) {
+                $query->where('districts.colflag')
+                    ->orWhere('districts.colflag', '=', 0);
             });
         });
+        if (isset($searchFilter['distname']) && $searchFilter['distname'] != '' && $searchFilter['distname'] != 0) {
+            $sql->where('districts.distname', $searchFilter['distname']);
+        }
+        if (isset($searchFilter['graph']) && $searchFilter['graph'] == 'u5') {
+            $sql->where('pd.ss104y', '<=', '4');
+        }
 
-        $sql->where('uclist.uccode', '!=', '');
+        $sql->where('districts.distname', '!=', '');
+        $sql->where('cc.username', 'Not like', '%testuser2%');
         $sql->where(function ($query) {
             $query->where('cc.colflag')
                 ->orWhere('cc.colflag', '=', 0);
         });
+        $sql->groupBy('districts.distname');
+        $sql->orderBy('districts.distname', 'asc');
 
-
-        $sql->where('cc.username', 'Not like', '%testuser2%');
-        if (isset($searchFilter['province']) && $searchFilter['province'] != '' && $searchFilter['province'] != 0) {
-            $sql->where('uclist.provcode', $searchFilter['province']);
-        }
-        if (isset($searchFilter['dist']) && $searchFilter['dist'] != '' && $searchFilter['dist'] != 0) {
-            $sql->where('uclist.distcode', $searchFilter['dist']);
-        }
-        if (isset($searchFilter['uc']) && $searchFilter['uc'] != '' && $searchFilter['uc'] != 0) {
-            $sql->where('uclist.uccode', $searchFilter['uc']);
-        }
-        if (isset($searchFilter['from_slug']) && $searchFilter['from_slug'] != '' && $searchFilter['from_slug'] != 0 && $searchFilter['from_slug'] != '1970-01-01') {
-            $sql->whereRaw("pd.vdate>='".$searchFilter['from_slug']."'");
-        }
-        if (isset($searchFilter['to_slug']) && $searchFilter['to_slug'] != '' && $searchFilter['to_slug'] != 0 && $searchFilter['to_slug'] != '1970-01-01') {
-            $sql->whereRaw("pd.vdate<='".$searchFilter['to_slug']."'");
-        }
-        if (isset(Auth::user()->district) && Auth::user()->district != '' && Auth::user()->district != '0') {
-            $dist = Auth::user()->district;
-            $sql->where(function ($query) use ($dist) {
-                $exp_dist = explode(',', $dist);
-                foreach ($exp_dist as $d) {
-                    $query->orWhere('uclist.distcode', '=', trim($d));
-                }
-            });
-        }
-
-        $sql->groupBy('uclist.distname', 'uclist.uccode', 'uclist.ucname' );
-        $sql->orderBy('uclist.uccode', 'asc');
         return $sql->get();
     }
 }

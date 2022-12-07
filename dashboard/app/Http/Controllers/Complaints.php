@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diagnosis_Model;
+use App\Models\Complaints_Model;
 use App\Models\Custom_Model;
 use App\Models\Settings_Model;
 use Illuminate\Support\Facades\Auth;
 
-class Diagnosis extends Controller
+class Complaints extends Controller
 {
     public function __construct()
     {
@@ -18,11 +18,11 @@ class Diagnosis extends Controller
     {
         $data = array();
 
-        $data['permission'] = Settings_Model::getUserRights(Auth::user()->idGroup, '', 'diagnosis');
+        $data['permission'] = Settings_Model::getUserRights(Auth::user()->idGroup, '', 'complaints');
         /*==========Log=============*/
         $trackarray = array(
-            "activityName" => "Diagnosis",
-            "action" => "View Diagnosis -> Function: Diagnosis/index()",
+            "activityName" => "Complaints",
+            "action" => "View Complaints -> Function: Complaints/index()",
             "PostData" => "",
             "affectedKey" => "",
             "idUser" => (isset(Auth::user()->id) && Auth::user()->id != '' ? Auth::user()->id : 0),
@@ -36,7 +36,7 @@ class Diagnosis extends Controller
             $trackarray["mainResult"] = "Success";
             $trackarray["result"] = "View Success";
             Custom_Model::trackLogs($trackarray, "all_logs");
-            return view('diagnosis', ['data' => $data]);
+            return view('complaints', ['data' => $data]);
         } else {
             $trackarray["mainResult"] = "Error";
             $trackarray["result"] = "View Error - Access denied";
@@ -45,13 +45,12 @@ class Diagnosis extends Controller
         }
     }
 
-    function getTopDiagnosis()
+    function getTopComplaint()
     {
         $searchFilter = array();
         $searchFilter['distname'] = (isset($_GET['id']) && $_GET['id']!=''?$_GET['id']:'Lahore');
         $searchFilter['graph'] = (isset($_GET['graph']) && $_GET['graph']!= '' ? $_GET['graph'] : 'u5');
-        $getData = Diagnosis_Model::getData($searchFilter);
-
+        $getData = Complaints_Model::getData($searchFilter);
         $data = array();
         $total = 0;
         foreach ($getData as $k => $v) {
@@ -63,6 +62,7 @@ class Diagnosis extends Controller
             }
             arsort($data[$v->distname]);
         }
+
         $mydata = array();
         $f = 0;
         foreach ($data[$searchFilter['distname']] as $k => $v) {
